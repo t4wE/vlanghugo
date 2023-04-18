@@ -26,7 +26,7 @@ To build:
 ```
 git clone https://github.com/t4wE/vlanghugo
 cd vlanghugo
-sassc assets/css/sass/style.sass > assets/css/style.css
+sassc assets/css/sass/style.sass > assets/css/style1.css (not yet fully merged, not used)
 hugo
 hugo server
 ```
