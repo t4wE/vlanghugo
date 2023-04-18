@@ -1,0 +1,62 @@
+paginate = 40
+defaultContentLanguage = 'en'
+showLanguageSelector = true
+defaultContentLanguageInSubdir = false
+baseURL = '/'
+
+disableKinds = ["taxonomyTerm","sitemap","RSS"]
+
+[params]
+[sitemap]
+filename = '/sitemap.xml'
+
+
+[languages]
+[languages.en]
+  contentDir = 'content/en'
+  languageName = "EN"
+  weight=1
+  title = "Vlang.io"
+  owner = "AM"
+  description = "vlang website"
+  keywords = "vlang, v lang"
+  copyright = "AM"
+
+[languages.ru]
+  contentDir = 'content/ru'
+  languageName = "RU"
+  weight=2
+  title = "ВЛАНГ"
+  owner = "АМ"
+  description = "сайт языка вланг"
+  keywords = "вланг, в язык"
+  copyright = "АМ"
+
+[languages.en.menu]
+  [[languages.en.menu.main]]
+        identifier = "home"
+        name = "Home"
+        pageRef= "/"
+        weight = 1
+        description = "v"
+        keywords = "v"
+  [[languages.en.menu.main]]
+        identifier = "compare"
+        name = "Compare"
+        pageRef= "/compare/"
+        weight = 2
+        description = "v"
+        keywords = "v"
+
+[languages.ru.menu]
+  [[languages.ru.menu.main]]
+        identifier = "home"
+        name = "Главная"
+        pageRef= "/ru/"
+        weight = 1
+  [[languages.ru.menu.main]]
+        identifier = "home"
+        name = "Comparison"
+        pageRef= "/compare/ru/"
+        weight = 1
+  

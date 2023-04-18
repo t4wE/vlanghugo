@@ -1,0 +1,8 @@
+User-agent: *                                       
+Allow: /sitemap.xml                         
+
+Disallow: /ru/
+
+Host: https://vlang.io/
+ 
+Sitemap: http://vlang.io/sitemap.xml

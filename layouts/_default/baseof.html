@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" lang="{{ .Site.Language.Lang }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{ $style := resources.Get "css/style.css" | resources.ExecuteAsTemplate "css/style.css" . -}}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    {{ range .Site.Params.customCSS -}}
+    <link rel="stylesheet" href="{{ . | relURL }}">
+    {{- end }}
+    <link rel="shortcut icon" href="/media/v-logo.png">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,300,100,200,500,700|Roboto+Mono:400,300,100,200,500" media="none" onload="if(media!='all')media='all'"><noscript>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,300,100,200,500,700|Roboto+Mono:400,300,100,200,500"></noscript>
+    <script src="tokenizer.js"></script>
+    <title>Vlang</title>
+</head>
+
+<body>
+    <div id='app'>
+        {{ partial "nav" . }}
+        <div class='content landing'>
+            {{ partial "book" . }}
+            {{ block "main" . }}
+            {{ end }}
+            {{ partial "footer" . }}
+        </div>
+</body>
+
+</html>
