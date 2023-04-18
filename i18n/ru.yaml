@@ -88,15 +88,3 @@
   translation:
     "<b>Совет:</b> Вы можете отображать сколько угодно разделов с помощью параметра конфигурации \
     <b><a href=\"https://gohugo.io/functions/where/#mainsections\" rel=\"nofollow noopener\" target=\"_blank\">mainSections</a></b>."
-
-- id: switch
-  translation:
-    "Switch to:"
-
-- id: top
-  translation:
-    "Наверх"
-
-- id: guides
-  translation:
-    "Список гайдов:"
