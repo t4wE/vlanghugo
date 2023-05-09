@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,300,100,200,500,700|Roboto+Mono:400,300,100,200,500" media="none" onload="if(media!='all')media='all'"><noscript>
         <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,300,100,200,500,700|Roboto+Mono:400,300,100,200,500"></noscript>
     <script src="tokenizer.js"></script>
-    <title>Vlang</title>
+    <title>The V Programming Language</title>
 </head>
 
 <body>
@@ -22,14 +22,14 @@
   <a href='/'><img src='/media/v-logo.png' class='logo' /></a>
 
   <div class='nav'>
-    <a href='https://github.com/vlang/V/tree/master/examples' class='item'>Examples</a>
-    <a href='https://github.com/vlang/v/blob/master/doc/docs.md' class='item'>Documentation</a>
-    <a href='https://github.com/vlang/v/tree/master/tutorials' class='item'>Tutorials</a>
-    <a href='https://modules.vlang.io/' class='item'>Stdlib Docs</a>
-    <a href='https://vpm.vlang.io/' class='item'>vpm</a>
-    <a href='https://github.com/vlang/v/discussions' class='item'>Forum</a>
-    <a href='https://blog.vlang.io/' class='item'>Blog</a>
-    <a href='https://play.vlang.io/' class='item'>Playground</a>
+    <a target=_blank href='https://github.com/vlang/V/tree/master/examples' class='item'>Examples</a>
+    <a target=_blank href='https://github.com/vlang/v/blob/master/doc/docs.md' class='item'>Documentation</a>
+    <a target=_blank href='https://github.com/vlang/v/tree/master/tutorials' class='item'>Tutorials</a>
+    <a target=_blank href='https://modules.vlang.io/' class='item'>Stdlib Docs</a>
+    <a target=_blank href='https://vpm.vlang.io/' class='item'>vpm</a>
+    <a target=_blank href='https://github.com/vlang/v/discussions' class='item'>Forum</a>
+    <a target=_blank href='https://github.com/vlang/v/discussions/categories/blog' class='item'>Blog</a>
+    <a target=_blank href='https://play.vlang.io/' class='item'>Playground</a>
   </div>
   <div class="donate-button">
       <a target="_blank" href='https://patreon.com/vlang' class='patreon'><img src='/media/patreon.png' /></a>
@@ -851,21 +851,23 @@
         </div>
         <div class="section">
             <div class="block" style="max-width:430px">
-                <h2>Powerful built-in web framework</h2>
-                <p><a href="https://github.com/vlang/v/tree/master/vlib/vweb">github.com/vlang/v/tree/master/vlib/vweb</a></p>
-                <div class="codeblock">
-                    <div class="titlebar separator">
-                        <div class="flex"></div>
-                    </div>
-                    <pre>['/post/:id']
+                <h2>Powerful built-in web framework Vweb</h2>
+                <p>Vweb is very fast, it compiles into a single binary (html templates are also compiled), supports hot code reloading
+                    (the website is automatically updated in the browser once you change any .v/.html file).
+                    <p><a href="https://github.com/vlang/v/tree/master/vlib/vweb">github.com/vlang/v/tree/master/vlib/vweb</a></p>
+                    <div class="codeblock">
+                        <div class="titlebar separator">
+                            <div class="flex"></div>
+                        </div>
+                        <pre>['/post/:id']
     fn (b Blog) show_post(id int) vweb.Result {
       post := b.posts_repo.retrieve(id) or {
         return vweb.not_found()
       }
       return vweb.view(post)
     }</pre>
-                </div>
-                <p><a href="https://github.com/vlang/gitly">Gitly</a>, a light and fast alternative to GitHub/GitLab is built in V and vweb.</p>
+                    </div>
+                    <p><a href="https://github.com/vlang/gitly">Gitly</a>, a light and fast alternative to GitHub/GitLab is built in V and vweb.</p>
             </div>
             <div class="block">
                 <h2>Built-in ORM</h2>
