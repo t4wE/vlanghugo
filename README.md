@@ -12,11 +12,11 @@ There are various way you can contribute to this project. Refactoring writings, 
 
 ### Styling the website
 
-There is `app.css` file in ``assets/css`` folder  which is the main stylesheet. It is converted from `app.sass` file. Use `index.html` in ``public`` folder to view the rendered html file. This will help you style the website.
+There is `assets/css/style.css` file which is the main stylesheet. It's pre-made . It is supposed to be converted from `assets/css/style.sass` file and minified but its not yet implemented. Use `index.html` in ``public`` folder to view the rendered html file. This will help you style the website.
 
 ### Adding Language
 
-tbd, see `i18n` folder
+TBD, see `i18n` folder
 
 ### Building
 
@@ -26,7 +26,7 @@ To build:
 ```
 git clone https://github.com/t4wE/vlanghugo
 cd vlanghugo
-sassc assets/css/sass/style.sass > assets/css/style1.css (not yet fully merged, not used)
+sassc assets/css/sass/style.sass > assets/css/style1.css (not yet fully merged, not used, can be skipped)
 hugo
 hugo server
 ```
