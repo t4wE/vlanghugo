@@ -216,8 +216,9 @@
     	        <br> <code>s.replace('a', 'A').replace('b', 'B')</code>
     	    </p>
     	    <p>
-    	        <br>
+    	        - Arrays and maps (and arrays of arrays, arrays of maps etc) are automatically allocated. No more nil reference panics if you forgot to allocate each map in a loop.
     	    </p>
+    	    <br>
     	    <h3> Rust</h3>
     	    Rust has a very different philosophy.
     	    <p>
@@ -245,7 +246,8 @@
     	    <p>
     	        <b>Rust</b>
     	    </p>
-    	    <code><pre>use serde::Deserialize;
+    	    <code>
+    	        <pre>use serde::Deserialize;
     	use std::sync::{Arc, Mutex};
     	
     	const STORIES_URL: &amp;str = "https://hacker-news.firebaseio.com/v0/topstories.json";
@@ -287,73 +289,73 @@
     	    <pre>package main
     	
     	import (
-    		"encoding/json"
-    		"fmt"
-    		"io/ioutil"
-    		"net/http"
-    		"sync"
+    	    "encoding/json"
+    	    "fmt"
+    	    "io/ioutil"
+    	    "net/http"
+    	    "sync"
     	)
     	
     	const STORIES_URL = "https://hacker-news.firebaseio.com/v0/topstories.json"
     	const ITEM_URL_BASE = "https://hacker-news.firebaseio.com/v0/item"
     	
     	type Story struct {
-    		Title string
+    	    Title string
     	}
     	
     	func main() {
-    		rsp, err := http.Get(STORIES_URL)
-    		if err != nil {
-    			panic(err)
-    		}
-    		defer rsp.Body.Close()
-    		data, err := ioutil.ReadAll(rsp.Body)
-    		if err != nil {
-    			panic(err)
-    		}
-    		var ids []int
-    		if err := json.Unmarshal(data, &amp;ids); err != nil {
-    			panic(err)
-    		}
-    		var cursor int
-    		var mutex sync.Mutex
-    		next := func() int {
-    			mutex.Lock()
-    			defer mutex.Unlock()
-    			temp := cursor
-    			cursor++
-    			return temp
-    		}
-    		wg := sync.WaitGroup{}
-    		for i := 0; i &lt; 8; i++ {
-    			wg.Add(1)
-    			go func() {
-    				for cursor := next(); cursor &lt; len(ids); cursor = next() {
-    					url := fmt.Sprintf(
-    						"%s/%d.json",
-    						ITEM_URL_BASE,
-    						ids[cursor],
-    					)
-    					rsp, err := http.Get(url)
-    					if err != nil {
-    						panic(err)
-    					}
-    					defer rsp.Body.Close()
+    	    rsp, err := http.Get(STORIES_URL)
+    	    if err != nil {
+    	        panic(err)
+    	    }
+    	    defer rsp.Body.Close()
+    	    data, err := ioutil.ReadAll(rsp.Body)
+    	    if err != nil {
+    	        panic(err)
+    	    }
+    	    var ids []int
+    	    if err := json.Unmarshal(data, &amp;ids); err != nil {
+    	        panic(err)
+    	    }
+    	    var cursor int
+    	    var mutex sync.Mutex
+    	    next := func() int {
+    	        mutex.Lock()
+    	        defer mutex.Unlock()
+    	        temp := cursor
+    	        cursor++
+    	        return temp
+    	    }
+    	    wg := sync.WaitGroup{}
+    	    for i := 0; i &lt; 8; i++ {
+    	        wg.Add(1)
+    	        go func() {
+    	            for cursor := next(); cursor &lt; len(ids); cursor = next() {
+    	                url := fmt.Sprintf(
+    	                    "%s/%d.json",
+    	                    ITEM_URL_BASE,
+    	                    ids[cursor],
+    	                )
+    	                rsp, err := http.Get(url)
+    	                if err != nil {
+    	                    panic(err)
+    	                }
+    	                defer rsp.Body.Close()
     	
-    					data, err := ioutil.ReadAll(rsp.Body)
-    					if err != nil {
-    						panic(err)
-    					}
-    					var story Story
-    					if err := json.Unmarshal(data, &amp;story); err != nil {
-    						panic(err)
-    					}
-    					fmt.Println(story.Title)
-    				}
-    				wg.Done()
-    			}()
-    		}
-    		wg.Wait()
+    	                data, err := ioutil.ReadAll(rsp.Body)
+    	                if err != nil {
+    	                    panic(err)
+    	                }
+    	                var story Story
+    	                if err := json.Unmarshal(data, &amp;story); err != nil {
+    	                    panic(err)
+    	                }
+    	                fmt.Println(story.Title)
+    	            }
+    	            wg.Done()
+    	        }()
+    	    }
+    	    wg.Wait()
     	}
     	</pre>
     	    <b>V</b>
@@ -361,42 +363,42 @@
     	import json
     	
     	const (
-    		stories_url   = 'https://hacker-news.firebaseio.com/v0/topstories.json'
-    		item_base_url = 'https://hacker-news.firebaseio.com/v0/item'
+    	    stories_url   = 'https://hacker-news.firebaseio.com/v0/topstories.json'
+    	    item_base_url = 'https://hacker-news.firebaseio.com/v0/item'
     	)
     	
     	struct Story {
-    		title string
+    	    title string
     	}
     	
     	struct Cursor {
     	mut:
-    		pos int
+    	    pos int
     	}
     	
     	fn main() {
-    		resp := http.get(stories_url) ?
-    		ids := json.decode([]int, resp.text) ?
-    		shared cursor := Cursor{}
-    		mut threads := []thread{}
+    	    resp := http.get(stories_url) ?
+    	    ids := json.decode([]int, resp.text) ?
+    	    shared cursor := Cursor{}
+    	    mut threads := []thread{}
     	
-    		for _ in 0 .. 8 {
-    			threads &lt;&lt; go fn (ids []int, shared cursor Cursor) {
-    				for {
-    					id := lock cursor {
-    						if cursor.pos &gt;= ids.len {
-    							break
-    						}
-    						cursor.pos++
-    						ids[cursor.pos - 1]
-    					}
-    					resp := http.get('$item_base_url/${id}.json') or { panic(err) }
-    					story := json.decode(Story, resp.text) or { panic(err) }
-    					println(story.title)
-    				}
-    			}(ids, shared cursor)
-    		}
-    		threads.wait()
+    	    for _ in 0 .. 8 {
+    	        threads &lt;&lt; go fn (ids []int, shared cursor Cursor) {
+    	            for {
+    	                id := lock cursor {
+    	                    if cursor.pos &gt;= ids.len {
+    	                        break
+    	                    }
+    	                    cursor.pos++
+    	                    ids[cursor.pos - 1]
+    	                }
+    	                resp := http.get('$item_base_url/${id}.json') or { panic(err) }
+    	                story := json.decode(Story, resp.text) or { panic(err) }
+    	                println(story.title)
+    	            }
+    	        }(ids, shared cursor)
+    	    }
+    	    threads.wait()
     	}
     	</pre>
     	    <b>Nim</b>
@@ -497,7 +499,6 @@
     	    </p>
     	</div>
     	</pre>
-
 
             <div class="thanks" style="justify-content: center; display: flex;flex-direction: column;margin-top: 48px;">
     <i style="margin-bottom: 8px; margin-top: 10px;">Web design by <a href="https://github.com/hex2f">Leah</a>.</i>
