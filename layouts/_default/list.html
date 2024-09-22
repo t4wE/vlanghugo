@@ -1,6 +1,5 @@
 {{ define "main" }}
-<h1 itemprop="headline">{{.Title }}</h1>
-<span itemprop="description">
+
  <ol>
   {{ range sort .Pages "Date" "desc"}}
   <li>
@@ -10,5 +9,5 @@
   </li>
   {{end}}
  </ol>
-</span>
+
 {{end}}

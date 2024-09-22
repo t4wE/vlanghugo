@@ -1,5 +1,5 @@
 <div class="examples">
-{{ partial "veasel" . }}
+    {{ partial "veasel" . }}
     <div class="codeblock" id="codeblock_99404097">
         <div class="titlebar separator">
             <div class="flex"></div>
@@ -81,26 +81,35 @@ fn (mut u User) register() {
 }
 
   </pre>
+        <pre class="hello_devs" id="ex5" style="display:none">import arrays
+keys := ['accept', 'Accept', 'ACCEPT', 'Content-Type', 'content-type']
+unique_lowercase_keys := arrays.uniq(keys.map(it.to_lower()))
+println(unique_lowercase_keys) // ['accept', 'content-type']
+</pre>
     </div>
     <select id="select" onchange="change_ex()" style="margin-top:5px">
         <option value="1">Hello world</option>
         <option value="2">Filter log file</option>
         <option value="3">HTTP + time</option>
         <option value="4">JSON encoding/decoding</option>
+        <option value="5">Unique lowercase HTTP keys (map + uniq demo)</option>
     </select>
     <script>
     var ex_id = 1;
     const nr_exs = 5;
+
     function prev() {
         ex_id--;
         if (ex_id < 1) ex_id = nr_exs;
         update_ex()
     }
+
     function next() {
         ex_id++;
         if (ex_id > nr_exs) ex_id = 1;
         update_ex()
     }
+
     function update_ex() {
         var elems = document.querySelectorAll('.hello_devs');
         for (var index = 0; index < elems.length; index++) {
@@ -116,11 +125,13 @@ fn (mut u User) register() {
         select.value = ex_id;
         getAjax('/next')
     }
+
     function change_ex() {
         var select = document.getElementById("select");
         ex_id = select.value - 1;
         next();
     }
+
     function tokenize_codeblock_99404097(e) {
         Tokenizer(e.target.value).then(function(tokens) {
             document.getElementById("codeblock_hl_04227451").innerHTML = tokens
